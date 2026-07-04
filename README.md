@@ -16,30 +16,35 @@
 [![Cursor ≥2.4](https://img.shields.io/badge/Cursor-%E2%89%A52.4-7c3aed)](https://cursor.sh)
 [![Node.js 22+](https://img.shields.io/badge/Node.js-22%2B-417e38?logo=node.js)](https://nodejs.org)
 [![License MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
-[![Skill](https://img.shields.io/badge/SKILL.md-agentskills.io-ff6b9d)](https://agentskills.io)
+[![Hobby Project](https://img.shields.io/badge/hobby-project-ff6b9d)](https://github.com/clezcoding/brag-cursor-installer)
 
 </div>
 
 ---
 
+> [!NOTE]
+> **Hobby-Projekt · Hobby Project**
+> 
+> Dieses Repository ist ein inoffizieller Installer, den ich als persönliches Hobbyprojekt gebaut habe, um [latent-spaces/brag](https://github.com/latent-spaces/brag) einfach in Cursor einzurichten. **Der /brag Skill selbst wurde NICHT von mir entwickelt** — alle Credits gehören [latent-spaces](https://github.com/latent-spaces).
+>
+> *This is an unofficial installer I built as a personal hobby project to make [latent-spaces/brag](https://github.com/latent-spaces/brag) easy to set up in Cursor. **The /brag skill itself was NOT developed by me** — all credit goes to [latent-spaces](https://github.com/latent-spaces).*
+
+---
+
 ## ⚡ One Command — Download & Start
 
-> **Empfohlen · Recommended** — Diese Methode behält das volle interaktive Terminal-Menü.
-> *This method preserves the full interactive terminal menu.*
+> **Empfohlen · Recommended** — Behält das volle interaktive Terminal-Menü.
+> *Preserves the full interactive terminal menu with TTY.*
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/clezcoding/brag-cursor-installer/main/install-brag-cursor.sh -o /tmp/install-brag.sh && chmod +x /tmp/install-brag.sh && /tmp/install-brag.sh
 ```
 
 <details>
-<summary>🔹 Nicht-interaktiv (curl | bash) — Auto-Installiert ins aktuelle Projekt</summary>
-
-> Wenn du `curl | bash` benutzt, gibt es kein interaktives Menü — das Script installiert automatisch in den aktuellen Ordner. Flags können direkt übergeben werden:
->
-> *When using `curl | bash`, there's no interactive menu — the script auto-installs to the current folder. Flags can be passed directly:*
+<summary>🔹 Nicht-interaktiv (curl | bash) — Auto-install ins aktuelle Projekt</summary>
 
 ```bash
-# Auto-install: aktuelles Projekt + global (kein Prompt)
+# Aktuelles Projekt + global (kein Prompt)
 curl -fsSL https://raw.githubusercontent.com/clezcoding/brag-cursor-installer/main/install-brag-cursor.sh | bash -s -- install --both -y
 
 # Nur global
@@ -55,49 +60,56 @@ curl -fsSL https://raw.githubusercontent.com/clezcoding/brag-cursor-installer/ma
 
 ### 🎬 Was ist /brag?
 
-[/brag](https://github.com/latent-spaces/brag) ist ein KI-Skill im [SKILL.md-Format](https://agentskills.io) für Cursor und andere KI-Coding-Assistenten. Er liest dein Projekt, plant ein Storyboard, erstellt eine Videokomposition mit [Hyperframes](https://github.com/heygen-com/hyperframes) und rendert das fertige Video nach `brag-output/brag.mp4` — vollautomatisch, ohne Videoeditor.
+[/brag](https://github.com/latent-spaces/brag) ist ein KI-Skill im [SKILL.md-Format](https://agentskills.io) für Cursor. Er liest dein Projekt, plant ein Storyboard, erstellt eine Videokomposition mit [Hyperframes](https://github.com/heygen-com/hyperframes) und rendert das fertige Video nach `brag-output/brag.mp4` — vollautomatisch.
 
-Dieses Repository enthält ein macOS-Installationsskript, das alles für **Cursor** einrichtet.
+Dieses Repository enthält einen macOS-Installer für **Cursor** — gebaut als Hobby-Projekt.
 
 ---
 
 ### 🤖 Was macht das Skript automatisch?
 
-Das Skript erledigt **fast alles** — du musst kaum etwas selbst machen:
+| # | Schritt | Status |
+|:-:|---------|:------:|
+| 01 | Xcode Command Line Tools | ⚠️ Dialog |
+| 02 | Homebrew | ✅ Auto |
+| 03 | Node.js 22+ | ✅ Auto |
+| 04 | FFmpeg | ✅ Auto |
+| 05 | git | ✅ Auto |
+| 06 | Cursor.app prüfen | ✅ Auto |
+| 07 | latent-spaces/brag klonen | ✅ Auto |
+| 08 | Hyperframes companion skills | ✅ Auto |
+| 09 | Skills in ~/.cursor/skills spiegeln | ✅ Auto |
+| 10 | /brag deployen | ✅ Auto |
+| 11 | Fallback-Regel für Cursor < 2.4 | ✅ Auto |
+| 12 | Headless Chrome | ✅ Auto |
+| 13 | `npx hyperframes doctor` | ✅ Auto |
+| 14 | uv (optional) | 💬 Prompt |
+| 15 | HeyGen API Key (optional) | 💬 Prompt |
 
-| # | Schritt | Was passiert | Status |
-|:-:|---------|-------------|:------:|
-| 01 | Xcode Command Line Tools | Prüft ob vorhanden, startet Installer wenn nötig | ⚠️ Dialog |
-| 02 | Homebrew | Wird installiert wenn nicht vorhanden | ✅ Auto |
-| 03 | Node.js 22+ | Wird über Homebrew installiert wenn veraltet | ✅ Auto |
-| 04 | FFmpeg | Wird über Homebrew installiert wenn fehlt | ✅ Auto |
-| 05 | git | Wird geprüft (kommt mit Xcode CLT) | ✅ Auto |
-| 06 | Cursor.app | Wird geprüft (Warnung wenn nicht in /Applications) | ✅ Auto |
-| 07 | /brag Skill klonen | Von `latent-spaces/brag` (shallow clone) | ✅ Auto |
-| 08 | Hyperframes Skills | `npx hyperframes skills update` global | ✅ Auto |
-| 09 | Skills spiegeln | Hyperframes-Pakete → `~/.cursor/skills` | ✅ Auto |
-| 10 | /brag deployen | In Projektordner und/oder global | ✅ Auto |
-| 11 | Fallback-Regel | `.cursor/rules/brag.mdc` (für Cursor < 2.4) | ✅ Auto |
-| 12 | Headless Chrome | `npx hyperframes browser ensure` | ✅ Auto |
-| 13 | Umgebungscheck | `npx hyperframes doctor` | ✅ Auto |
-| 14 | uv | Optional: fragt nach (Beat-Sync für eigene Musik) | 💬 Prompt |
-| 15 | HeyGen API Key | Optional: fragt nach (KI-Presenter-Overlays) | 💬 Prompt |
+---
+
+### 🔄 Auto-Update
+
+Das Skript kann sich selbst aktualisieren. Beim interaktiven Start wird automatisch nach Updates gesucht. Du kannst auch manuell updaten:
+
+```bash
+./install-brag.sh update
+```
+
+Wenn eine neue Version gefunden wird, wird sie heruntergeladen und das Skript startet automatisch neu mit denselben Argumenten.
 
 ---
 
 ### 🖐 Was musst du manuell tun?
 
-Sehr wenig! Nur diese Dinge erfordern deinen Input:
-
 | Schritt | Wann | Aktion |
 |---------|------|--------|
-| Xcode CLT Dialog | Nur wenn CLT fehlt | Dialog bestätigen, dann Skript nochmal starten |
-| Installationsort | Immer (interaktiv) | 1 = Projekt / 2 = Global / 3 = Beides (empfohlen) |
-| Projektpfad | Wenn Projekt gewählt | Enter = aktueller Ordner |
+| Xcode CLT Dialog | Nur wenn CLT fehlt | Dialog bestätigen, Skript neu starten |
+| Installationsort | Immer (interaktiv) | 1 = Projekt / 2 = Global / 3 = Beides |
 | uv installieren? | Optional | j/n Prompt |
-| HeyGen API Key | Optional | Key einfügen oder Enter zum Überspringen |
-| **Cursor neu starten** | Nach der Installation | Damit Skills erkannt werden |
-| **/brag eintippen** | In Cursor | Im Agent-Panel |
+| HeyGen API Key | Optional | Key einfügen oder Enter |
+| **Cursor neu starten** | Nach Installation | Skills werden erkannt |
+| **/brag tippen** | In Cursor | Im Agent-Panel |
 
 ---
 
@@ -105,40 +117,27 @@ Sehr wenig! Nur diese Dinge erfordern deinen Input:
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
-│  INSTALLATION                                                         │
-├──────────────────────────────────────────────────────────────────────┤
-│                                                                      │
 │  SCHRITT 1  Download & Start                                         │
 │                                                                      │
 │  curl -fsSL https://raw.githubusercontent.com/clezcoding/            │
 │    brag-cursor-installer/main/install-brag-cursor.sh \               │
-│    -o /tmp/install-brag.sh && chmod +x /tmp/install-brag.sh \        │
-│    && /tmp/install-brag.sh                                           │
-│                                                                      │
+│    -o /tmp/install-brag.sh &&                                        │
+│    chmod +x /tmp/install-brag.sh && /tmp/install-brag.sh             │
 ├──────────────────────────────────────────────────────────────────────┤
-│                                                                      │
-│  SCHRITT 2  Modus wählen: install                                    │
-│                                                                      │
-│  SCHRITT 3  Installationsort wählen                                  │
-│             → Option 3: Beides (Projekt + Global)  ← empfohlen      │
-│             → Enter drücken für aktuellen Ordner                    │
-│                                                                      │
+│  SCHRITT 2  Modus wählen  [1] install  [2] uninstall  [3] update     │
 ├──────────────────────────────────────────────────────────────────────┤
-│                                                                      │
-│  SCHRITT 4  Warten — 15 Schritte automatisch:                       │
-│                                                                      │
-│  [01] Xcode CLT        [06] Cursor.app       [11] Fallback-Regel     │
-│  [02] Homebrew         [07] /brag klonen      [12] Headless Chrome   │
-│  [03] Node.js 22+      [08] Hyperframes       [13] doctor-Check      │
-│  [04] FFmpeg           [09] Skills-Mirror     [14] uv (optional)     │
-│  [05] git              [10] /brag deployen    [15] HeyGen (optional) │
-│                                                                      │
+│  SCHRITT 3  Ort wählen  → Empfehlung: Option 3 (Projekt + Global)   │
 ├──────────────────────────────────────────────────────────────────────┤
+│  SCHRITT 4  Warten — 15 Schritte werden automatisch ausgeführt      │
 │                                                                      │
+│  [01] Xcode CLT     [06] Cursor.app   [11] Fallback-Regel            │
+│  [02] Homebrew      [07] /brag klonen  [12] Headless Chrome          │
+│  [03] Node.js 22+   [08] Hyperframes   [13] Doctor-Check             │
+│  [04] FFmpeg        [09] Mirror skills [14] uv (optional)            │
+│  [05] git           [10] Deploy /brag  [15] HeyGen (optional)        │
+├──────────────────────────────────────────────────────────────────────┤
 │  SCHRITT 5  Cursor neu starten                                       │
-│                                                                      │
 │  SCHRITT 6  Projekt in Cursor öffnen → Agent-Panel → /brag tippen   │
-│                                                                      │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -148,6 +147,7 @@ Sehr wenig! Nur diese Dinge erfordern deinen Input:
 
 ```bash
 ./install-brag-cursor.sh                             # interaktiv (empfohlen)
+./install-brag-cursor.sh update                      # selbst aktualisieren
 ./install-brag-cursor.sh install --project           # aktueller Ordner
 ./install-brag-cursor.sh install --project /pfad     # bestimmter Ordner
 ./install-brag-cursor.sh install --global            # alle Cursor-Projekte
@@ -164,42 +164,23 @@ Sehr wenig! Nur diese Dinge erfordern deinen Input:
 
 1. **Cursor neu starten** nach der Installation
 2. Projektordner in Cursor öffnen
-3. Im **Agent-Panel** eingeben:
+3. Im **Agent-Panel** eingeben: `/brag`
 
-```
-/brag
-```
+**Töne:**
 
-4. Optional — Ton wählen:
-
-| Ton | Stimmung | Beispiel |
-|-----|----------|----------|
-| `default` | Sauber, professionell | Startup-Pitch |
-| `polished` | Elegant und verfeinert | Enterprise |
-| `yc-parody` | Demo-Day-Energie | YC-Präsentation |
-| `chaotic` | Maximum Vibes | Hacker-Vibe |
-| `deadpan` | Trocken, minimalistisch | Dev-Tool |
-| `cinematic` | Episches Kinoformat | Open-Source |
-| `app-store` | App Store Preview Stil | Mobile App |
+| Ton | Stimmung |
+|-----|----------|
+| `default` | Sauber, professionell |
+| `polished` | Elegant, verfeinert |
+| `yc-parody` | Demo-Day-Energie |
+| `chaotic` | Maximum Vibes |
+| `deadpan` | Trocken, minimalistisch |
+| `cinematic` | Episches Kinoformat |
+| `app-store` | App Store Preview |
 
 ```bash
 /brag --tone cinematic
-/brag --tone chaotic
 ```
-
----
-
-### 🗑 Deinstallation
-
-```bash
-# Interaktiv
-./install-brag-cursor.sh uninstall
-
-# Alles auf einmal entfernen
-./install-brag-cursor.sh uninstall --both --purge
-```
-
-> Node.js, FFmpeg, Homebrew und uv werden **niemals** entfernt.
 
 </details>
 
@@ -210,47 +191,54 @@ Sehr wenig! Nur diese Dinge erfordern deinen Input:
 
 ### 🎬 What is /brag?
 
-[/brag](https://github.com/latent-spaces/brag) is an AI skill (in [SKILL.md format](https://agentskills.io)) for Cursor and other AI coding assistants. It reads your project, plans a storyboard, generates a video composition using [Hyperframes](https://github.com/heygen-com/hyperframes), and renders the result to `brag-output/brag.mp4` — fully autonomously, no video editor needed.
+[/brag](https://github.com/latent-spaces/brag) is an AI skill (in [SKILL.md format](https://agentskills.io)) for Cursor. It reads your project, plans a storyboard, generates a video using [Hyperframes](https://github.com/heygen-com/hyperframes), and renders it to `brag-output/brag.mp4` — fully autonomously.
 
-This repository provides a macOS installer that wires everything up natively inside **Cursor**.
+This repository provides a macOS installer — built as a hobby project.
 
 ---
 
 ### 🤖 What does the script do automatically?
 
-Almost everything — you barely need to lift a finger:
+| # | Step | Status |
+|:-:|------|:------:|
+| 01 | Xcode Command Line Tools | ⚠️ Dialog |
+| 02 | Homebrew | ✅ Auto |
+| 03 | Node.js 22+ | ✅ Auto |
+| 04 | FFmpeg | ✅ Auto |
+| 05 | git | ✅ Auto |
+| 06 | Verify Cursor.app | ✅ Auto |
+| 07 | Clone latent-spaces/brag | ✅ Auto |
+| 08 | Hyperframes companion skills | ✅ Auto |
+| 09 | Mirror to ~/.cursor/skills | ✅ Auto |
+| 10 | Deploy /brag | ✅ Auto |
+| 11 | Fallback rule (Cursor < 2.4) | ✅ Auto |
+| 12 | Headless Chrome | ✅ Auto |
+| 13 | `npx hyperframes doctor` | ✅ Auto |
+| 14 | uv (optional) | 💬 Prompt |
+| 15 | HeyGen API key (optional) | 💬 Prompt |
 
-| # | Step | What happens | Status |
-|:-:|------|-------------|:------:|
-| 01 | Xcode Command Line Tools | Checks if present, launches installer if needed | ⚠️ Dialog |
-| 02 | Homebrew | Installed automatically if missing | ✅ Auto |
-| 03 | Node.js 22+ | Installed via Homebrew if outdated | ✅ Auto |
-| 04 | FFmpeg | Installed via Homebrew if missing | ✅ Auto |
-| 05 | git | Verified (ships with Xcode CLT) | ✅ Auto |
-| 06 | Cursor.app | Checked (warning if not in /Applications) | ✅ Auto |
-| 07 | Clone /brag skill | From `latent-spaces/brag` (shallow clone) | ✅ Auto |
-| 08 | Hyperframes skills | `npx hyperframes skills update` globally | ✅ Auto |
-| 09 | Mirror to ~/.cursor/skills | Makes Hyperframes available to Cursor | ✅ Auto |
-| 10 | Deploy /brag | Into your project and/or globally | ✅ Auto |
-| 11 | Fallback rule | `.cursor/rules/brag.mdc` (for Cursor < 2.4) | ✅ Auto |
-| 12 | Headless Chrome | `npx hyperframes browser ensure` | ✅ Auto |
-| 13 | Environment check | `npx hyperframes doctor` | ✅ Auto |
-| 14 | uv | Optional: asks you (beat detection for custom music) | 💬 Prompt |
-| 15 | HeyGen API key | Optional: asks you (AI presenter overlays) | 💬 Prompt |
+---
+
+### 🔄 Auto-Update
+
+The script can update itself. On every interactive launch it silently checks for a new version. You can also update manually:
+
+```bash
+./install-brag.sh update
+```
+
+If a new version is found, it is downloaded and the script restarts automatically with the same arguments.
 
 ---
 
 ### 🖐 What do you need to do manually?
 
-Very little! Only these things require your input:
-
 | Step | When | Action |
 |------|------|--------|
-| Xcode CLT dialog | Only if CLT is missing | Confirm dialog, then re-run the script |
-| Choose install location | Always (interactive) | 1 = Project / 2 = Global / 3 = Both (recommended) |
-| Project path | If project chosen | Press Enter for current folder |
+| Xcode CLT dialog | Only if CLT is missing | Confirm dialog, re-run script |
+| Install location | Always (interactive) | 1 = Project / 2 = Global / 3 = Both |
 | Install uv? | Optional | y/n prompt |
-| HeyGen API key | Optional | Paste key or press Enter to skip |
+| HeyGen API key | Optional | Paste key or press Enter |
 | **Restart Cursor** | After installation | So new skills are discovered |
 | **Type /brag** | In Cursor | In the agent panel |
 
@@ -260,40 +248,27 @@ Very little! Only these things require your input:
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
-│  INSTALLATION                                                         │
-├──────────────────────────────────────────────────────────────────────┤
-│                                                                      │
 │  STEP 1   Download & Start                                           │
 │                                                                      │
 │  curl -fsSL https://raw.githubusercontent.com/clezcoding/            │
 │    brag-cursor-installer/main/install-brag-cursor.sh \               │
-│    -o /tmp/install-brag.sh && chmod +x /tmp/install-brag.sh \        │
-│    && /tmp/install-brag.sh                                           │
-│                                                                      │
+│    -o /tmp/install-brag.sh &&                                        │
+│    chmod +x /tmp/install-brag.sh && /tmp/install-brag.sh             │
 ├──────────────────────────────────────────────────────────────────────┤
-│                                                                      │
-│  STEP 2   Choose mode: install                                       │
-│                                                                      │
-│  STEP 3   Choose install location                                    │
-│           → Option 3: Both (Project + Global)  ← recommended        │
-│           → Press Enter for current folder                           │
-│                                                                      │
+│  STEP 2   Choose mode  [1] install  [2] uninstall  [3] update        │
 ├──────────────────────────────────────────────────────────────────────┤
-│                                                                      │
-│  STEP 4   Wait — 15 steps run automatically:                         │
-│                                                                      │
-│  [01] Xcode CLT        [06] Cursor.app       [11] Fallback rule      │
-│  [02] Homebrew         [07] Clone /brag       [12] Headless Chrome   │
-│  [03] Node.js 22+      [08] Hyperframes       [13] Doctor check      │
-│  [04] FFmpeg           [09] Mirror skills     [14] uv (optional)     │
-│  [05] git              [10] Deploy /brag      [15] HeyGen (optional) │
-│                                                                      │
+│  STEP 3   Choose location  → Recommended: Option 3 (Both)           │
 ├──────────────────────────────────────────────────────────────────────┤
+│  STEP 4   Wait — 15 steps run automatically                          │
 │                                                                      │
+│  [01] Xcode CLT     [06] Cursor.app   [11] Fallback rule             │
+│  [02] Homebrew      [07] Clone /brag   [12] Headless Chrome          │
+│  [03] Node.js 22+   [08] Hyperframes   [13] Doctor check             │
+│  [04] FFmpeg        [09] Mirror skills [14] uv (optional)            │
+│  [05] git           [10] Deploy /brag  [15] HeyGen (optional)        │
+├──────────────────────────────────────────────────────────────────────┤
 │  STEP 5   Restart Cursor                                             │
-│                                                                      │
-│  STEP 6   Open project in Cursor → agent panel → type /brag          │
-│                                                                      │
+│  STEP 6   Open project → agent panel → type /brag                   │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -303,6 +278,7 @@ Very little! Only these things require your input:
 
 ```bash
 ./install-brag-cursor.sh                             # interactive (recommended)
+./install-brag-cursor.sh update                      # self-update
 ./install-brag-cursor.sh install --project           # current folder
 ./install-brag-cursor.sh install --project /path     # specific folder
 ./install-brag-cursor.sh install --global            # all Cursor projects
@@ -318,28 +294,23 @@ Very little! Only these things require your input:
 ### 🎬 Using /brag in Cursor
 
 1. **Restart Cursor** after installation
-2. Open your project folder in Cursor
-3. In the **agent panel**, type:
+2. Open your project in Cursor
+3. In the **agent panel**, type: `/brag`
 
-```
-/brag
-```
+**Tones:**
 
-4. Optionally choose a tone:
-
-| Tone | Vibe | Best for |
-|------|------|----------|
-| `default` | Clean, professional | Startup pitch |
-| `polished` | Sleek and refined | Enterprise |
-| `yc-parody` | Demo Day energy | YC presentation |
-| `chaotic` | Maximum vibes | Hacker energy |
-| `deadpan` | Dry, minimal | Dev tool |
-| `cinematic` | Epic wide-shot feel | Open source |
-| `app-store` | App Store preview style | Mobile app |
+| Tone | Vibe |
+|------|------|
+| `default` | Clean, professional |
+| `polished` | Sleek and refined |
+| `yc-parody` | Demo Day energy |
+| `chaotic` | Maximum vibes |
+| `deadpan` | Dry, minimal |
+| `cinematic` | Epic wide-shot |
+| `app-store` | App Store preview |
 
 ```bash
 /brag --tone cinematic
-/brag --tone chaotic
 ```
 
 ---
@@ -347,109 +318,81 @@ Very little! Only these things require your input:
 ### 🗑 Uninstall
 
 ```bash
-# Interactive (asks for confirmation)
 ./install-brag-cursor.sh uninstall
-
-# Remove everything at once
-./install-brag-cursor.sh uninstall --both --purge
+./install-brag-cursor.sh uninstall --both --purge   # remove everything
 ```
 
-> Node.js, FFmpeg, Homebrew, and uv are **never** removed during uninstall.
+> Node.js, FFmpeg, Homebrew, and uv are **never** removed.
 
 </details>
 
 ---
 
-## 🔧 Troubleshooting · Fehlerbehebung
+## 🔧 Troubleshooting
 
 <details>
-<summary><b>🔴 Cursor reagiert nicht auf /brag · Cursor doesn't respond to /brag</b></summary>
+<summary><b>🔴 Cursor doesn't respond to /brag</b></summary>
 
-- Cursor ≥ 2.4 ist erforderlich für natives Skill-Discovery  
-  *Cursor ≥ 2.4 required for native skill discovery*
-- Für ältere Versionen: `.cursor/rules/brag.mdc` reagiert automatisch auf Keywords wie *"make a launch video"*  
-  *For older versions: `.cursor/rules/brag.mdc` triggers automatically on keywords like "make a launch video"*
-- **Cursor nach der Installation neu starten! · Restart Cursor after installation!**
+- Cursor ≥ 2.4 required for native skill discovery
+- For older versions: `.cursor/rules/brag.mdc` triggers automatically
+- **Restart Cursor after installation!**
 
 </details>
 
 <details>
-<summary><b>🔴 hyperframes doctor meldet Probleme · hyperframes doctor reports issues</b></summary>
+<summary><b>🔴 hyperframes doctor reports issues</b></summary>
 
 ```bash
-# FFmpeg fehlt · FFmpeg missing
-brew install ffmpeg
-
-# Node.js zu alt · Node.js outdated
+brew install ffmpeg           # FFmpeg missing
 brew install node@22 && brew link --overwrite --force node@22
-
-# Headless Chrome fehlt · Headless Chrome missing
 npx hyperframes browser ensure
 ```
 
 </details>
 
 <details>
-<summary><b>🔴 GitHub Rate Limit bei hyperframes skills update</b></summary>
+<summary><b>🔴 GitHub Rate Limit during hyperframes skills update</b></summary>
 
 ```bash
 gh auth login
-# dann nochmal · then retry:
 npx hyperframes skills update
-
-# oder · or:
+# or:
 export GITHUB_TOKEN=ghp_...
 npx hyperframes skills update
 ```
 
 </details>
 
-<details>
-<summary><b>🔴 Video wird nicht gerendert · Video not rendered</b></summary>
-
-- `brag-output/` auf partielle Ausgaben und `*.log`-Dateien prüfen  
-  *Check `brag-output/` for partial output and `*.log` files*
-- `npx hyperframes doctor` ausführen · *Run `npx hyperframes doctor`*
-- `npx hyperframes browser ensure` erneut ausführen · *Re-run `npx hyperframes browser ensure`*
-
-</details>
-
 ---
 
-## 📦 Was wird installiert · What gets installed
+## 📦 What gets installed
 
 ```
-~/.cursor/skills/                   ← global
-  ├── brag/
-  │   ├── SKILL.md                  /brag Skill-Definition
-  │   └── references/               Audio, Komposition, Ton, Schritt-Guides
+~/.cursor/skills/
+  ├── brag/            /brag skill (by latent-spaces)
   ├── hyperframes/
-  ├── hyperframes-creative/
   └── general-video/
 
-<projekt>/.cursor/                  ← projektlokal
-  ├── skills/
-  │   ├── brag/
-  │   └── hyperframes*/
-  └── rules/
-      └── brag.mdc                  Fallback für Cursor < 2.4
+<project>/.cursor/
+  ├── skills/brag/
+  └── rules/brag.mdc   Cursor < 2.4 fallback
 ```
 
 ---
 
 ## 🙏 Credits
 
-| Projekt | Beschreibung |
+| Project | Description |
 |---------|-------------|
-| [latent-spaces/brag](https://github.com/latent-spaces/brag) | Der /brag Skill · The /brag skill |
-| [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | Video-Kompositions-Framework |
-| [agentskills.io](https://agentskills.io) | SKILL.md Open Standard |
+| [latent-spaces/brag](https://github.com/latent-spaces/brag) | **The /brag skill** — built by latent-spaces, not me |
+| [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | Video composition framework |
+| [agentskills.io](https://agentskills.io) | SKILL.md open standard |
 
 ---
 
 <div align="center">
 
-MIT License &nbsp;·&nbsp; Made with ❤️ for the Cursor community
+MIT License &nbsp;·&nbsp; Hobby project by clezcoding &nbsp;·&nbsp; /brag skill by latent-spaces
 
 [⭐ Star latent-spaces/brag](https://github.com/latent-spaces/brag) &nbsp;·&nbsp; [📦 Hyperframes](https://github.com/heygen-com/hyperframes)
 
