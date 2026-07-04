@@ -49,11 +49,13 @@ set -euo pipefail
 #  THEME — colors, typography, and terminal helpers
 # ============================================================================
 
-TTY_OK=false; [[ -t 1 ]] && TTY_OK=true
-COLOR_OK=true; [[ -n "${NO_COLOR:-}" ]] && COLOR_OK=false; $TTY_OK || COLOR_OK=false
+# stdin must be a TTY for interactive prompts; stdout for colors.
+# When piped (curl | bash), stdin is the pipe — NOT a TTY — so skip all prompts.
+TTY_OK=false; [[ -t 0 ]] && [[ -t 1 ]] && TTY_OK=true
+COLOR_OK=true; [[ -n "${NO_COLOR:-}" ]] && COLOR_OK=false; [[ -t 1 ]] || COLOR_OK=false
 
 TERM_COLORS=8
-if $TTY_OK && command -v tput >/dev/null 2>&1; then
+if [[ -t 1 ]] && command -v tput >/dev/null 2>&1; then
   TERM_COLORS="$(tput colors 2>/dev/null || echo 8)"
 fi
 
@@ -75,7 +77,7 @@ else
 fi
 
 COLS=80
-if $TTY_OK && command -v tput >/dev/null 2>&1; then
+if [[ -t 1 ]] && command -v tput >/dev/null 2>&1; then
   COLS="$(tput cols 2>/dev/null || echo 80)"
 fi
 RULE_WIDTH=$COLS
